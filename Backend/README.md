@@ -2,7 +2,9 @@
 
 # Backend API Documentation
 
-## `/users/register` Endpoint
+### Endpoint
+
+## `/users/register`
 
 ### Description
 
@@ -67,6 +69,91 @@ The request body should be a JSON object with the following structure:
                 "location": "string"
             }
         ]
+    }
+    ```
+
+#### Server Errors
+
+-   **Status Code**: 500 Internal Server Error
+-   **Response Body**:
+    ```json
+    {
+        "error": "string"
+    }
+    ```
+
+### Endpoint
+
+## `/users/login`
+
+### Description
+
+This endpoint is used to login an existing user. It requires the user's email and password.
+
+### HTTP Method
+
+`POST`
+
+### Request Body
+
+The request body should be a JSON object with the following structure:
+
+```json
+{
+    "email": "string",
+    "password": "string"
+}
+```
+
+### Validation
+
+-   `email`: Must be a valid email address.
+-   `password`: Must be at least 6 characters long.
+
+### Responses
+
+#### Success
+
+-   **Status Code**: 200 OK
+-   **Response Body**:
+    ```json
+    {
+        "token": "(String): JWT Token",
+        "user": {
+            "_id": "string",
+            "fullname": {
+                "firstname": "string",
+                "lastname": "string"
+            },
+            "email": "string",
+            "password": "string"
+        }
+    }
+    ```
+
+#### Validation Errors
+
+-   **Status Code**: 400 Bad Request
+-   **Response Body**:
+    ```json
+    {
+        "errors": [
+            {
+                "msg": "string",
+                "param": "string",
+                "location": "string"
+            }
+        ]
+    }
+    ```
+
+#### Authentication Errors
+
+-   **Status Code**: 401 Unauthorized
+-   **Response Body**:
+    ```json
+    {
+        "message": "Invalid email or password"
     }
     ```
 
