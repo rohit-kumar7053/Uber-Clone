@@ -161,6 +161,109 @@ The request body should be a JSON object with the following structure:
 
 -   **Status Code**: 500 Internal Server Error
 -   **Response Body**:
+
+    ```json
+    {
+        "error": "string"
+    }
+    ```
+
+## Endpoint
+
+## `/users/profile`
+
+### Description
+
+This endpoint is used to get the profile of the currently authenticated user.
+
+### HTTP Method
+
+`GET`
+
+### Headers
+
+-   `Authorization`: Bearer token
+
+### Responses
+
+#### Success
+
+-   **Status Code**: 200 OK
+-   **Response Body**:
+    ```json
+    {
+        "_id": "string",
+        "fullname": {
+            "firstname": "string",
+            "lastname": "string"
+        },
+        "email": "string",
+        "socketId": "string"
+    }
+    ```
+
+#### Authentication Errors
+
+-   **Status Code**: 401 Unauthorized
+-   **Response Body**:
+    ```json
+    {
+        "message": "Authentication required"
+    }
+    ```
+
+#### Server Errors
+
+-   **Status Code**: 500 Internal Server Error
+-   **Response Body**:
+    ```json
+    {
+        "error": "string"
+    }
+    ```
+
+### Endpoint
+
+## `/users/logout`
+
+### Description
+
+Logout the current user and blacklist the token provided in cookie or headers
+
+### HTTP Method
+
+`GET`
+
+### Headers
+
+-   `Authorization`: Bearer token
+
+### Responses
+
+#### Success
+
+-   **Status Code**: 200 OK
+-   **Response Body**:
+    ```json
+    {
+        "message": "Logged out successfully"
+    }
+    ```
+
+#### Authentication Errors
+
+-   **Status Code**: 401 Unauthorized
+-   **Response Body**:
+    ```json
+    {
+        "message": "Authentication required"
+    }
+    ```
+
+#### Server Errors
+
+-   **Status Code**: 500 Internal Server Error
+-   **Response Body**:
     ```json
     {
         "error": "string"
