@@ -363,3 +363,291 @@ The request body should be a JSON object with the following structure:
         "error": "string"
     }
     ```
+
+## `/captains/register`
+
+### Description
+
+This endpoint is used to register a new captain. It requires the captain's first name, last name, email, password, and vehicle details.
+
+### HTTP Method
+
+`POST`
+
+### Request Body
+
+The request body should be a JSON object with the following structure:
+
+```json
+{
+    "fullname": {
+        "firstname": "string",
+        "lastname": "string"
+    },
+    "email": "string",
+    "password": "string",
+    "vehicle": {
+        "color": "string",
+        "plate": "string",
+        "capacity": "number",
+        "vehicleType": "string"
+    }
+}
+```
+
+### Validation
+
+-   `fullname.firstname`: Must be at least 3 characters long.
+-   `email`: Must be a valid email address.
+-   `password`: Must be at least 6 characters long.
+-   `vehicle.color`: Must be at least 3 characters long.
+-   `vehicle.plate`: Must be at least 3 characters long.
+-   `vehicle.capacity`: Must be at least 1.
+-   `vehicle.vehicleType`: Must be one of `car`, `motorcycle`, `auto`.
+
+### Responses
+
+#### Success
+
+-   **Status Code**: 201 Created
+-   **Response Body**:
+    ```json
+    {
+        "token": "(String): JWT Token",
+        "captain": {
+            "_id": "string",
+            "fullname": {
+                "firstname": "string",
+                "lastname": "string"
+            },
+            "email": "string",
+            "password": "string",
+            "vehicle": {
+                "color": "string",
+                "plate": "string",
+                "capacity": "number",
+                "vehicleType": "string"
+            }
+        }
+    }
+    ```
+
+#### Validation Errors
+
+-   **Status Code**: 400 Bad Request
+-   **Response Body**:
+    ```json
+    {
+        "errors": [
+            {
+                "msg": "string",
+                "param": "string",
+                "location": "string"
+            }
+        ]
+    }
+    ```
+
+#### Server Errors
+
+-   **Status Code**: 500 Internal Server Error
+-   **Response Body**:
+    ```json
+    {
+        "error": "string"
+    }
+    ```
+
+## `/captains/login`
+
+### Description
+
+This endpoint is used to log in an existing captain. It requires the captain's email and password.
+
+### HTTP Method
+
+`POST`
+
+### Request Body
+
+The request body should be a JSON object with the following structure:
+
+```json
+{
+    "email": "string",
+    "password": "string"
+}
+```
+
+### Validation
+
+-   `email`: Must be a valid email address.
+-   `password`: Must be at least 6 characters long.
+
+### Responses
+
+#### Success
+
+-   **Status Code**: 200 OK
+-   **Response Body**:
+    ```json
+    {
+        "token": "(String): JWT Token",
+        "captain": {
+            "_id": "string",
+            "fullname": {
+                "firstname": "string",
+                "lastname": "string"
+            },
+            "email": "string",
+            "password": "string",
+            "vehicle": {
+                "color": "string",
+                "plate": "string",
+                "capacity": "number",
+                "vehicleType": "string"
+            }
+        }
+    }
+    ```
+
+#### Validation Errors
+
+-   **Status Code**: 400 Bad Request
+-   **Response Body**:
+    ```json
+    {
+        "errors": [
+            {
+                "msg": "string",
+                "param": "string",
+                "location": "string"
+            }
+        ]
+    }
+    ```
+
+#### Authentication Errors
+
+-   **Status Code**: 401 Unauthorized
+-   **Response Body**:
+    ```json
+    {
+        "message": "Invalid email or password"
+    }
+    ```
+
+#### Server Errors
+
+-   **Status Code**: 500 Internal Server Error
+-   **Response Body**:
+    ```json
+    {
+        "error": "string"
+    }
+    ```
+
+## `/captains/profile`
+
+### Description
+
+This endpoint is used to get the profile of the authenticated captain.
+
+### HTTP Method
+
+`GET`
+
+### Headers
+
+-   `Authorization`: Bearer token
+
+### Responses
+
+#### Success
+
+-   **Status Code**: 200 OK
+-   **Response Body**:
+    ```json
+    {
+        "captain": {
+            "_id": "string",
+            "fullname": {
+                "firstname": "string",
+                "lastname": "string"
+            },
+            "email": "string",
+            "vehicle": {
+                "color": "string",
+                "plate": "string",
+                "capacity": "number",
+                "vehicleType": "string"
+            }
+        }
+    }
+    ```
+
+#### Authentication Errors
+
+-   **Status Code**: 401 Unauthorized
+-   **Response Body**:
+    ```json
+    {
+        "message": "Authentication required"
+    }
+    ```
+
+#### Server Errors
+
+-   **Status Code**: 500 Internal Server Error
+-   **Response Body**:
+    ```json
+    {
+        "error": "string"
+    }
+    ```
+
+## `/captains/logout`
+
+### Description
+
+This endpoint is used to log out the authenticated captain.
+
+### HTTP Method
+
+`GET`
+
+### Headers
+
+-   `Authorization`: Bearer token
+
+### Responses
+
+#### Success
+
+-   **Status Code**: 200 OK
+-   **Response Body**:
+    ```json
+    {
+        "message": "Logged out successfully"
+    }
+    ```
+
+#### Authentication Errors
+
+-   **Status Code**: 401 Unauthorized
+-   **Response Body**:
+    ```json
+    {
+        "message": "Authentication required"
+    }
+    ```
+
+#### Server Errors
+
+-   **Status Code**: 500 Internal Server Error
+-   **Response Body**:
+    ```json
+    {
+        "error": "string"
+    }
+    ```
